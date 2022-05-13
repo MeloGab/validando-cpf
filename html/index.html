@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario - Senac</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+    <script>
+        function enviar() {
+            var nome = formulario.nome.value;
+            var email = formulario.email.value;
+            var cpf = formulario.cpf.value;
+            var endereco = formulario.endereco.value;
+            var numero = formulario.numero.value;
+            var complemento = formulario.complemento.value;
+            var bairro = formulario.bairro.value;
+            var cep = formulario.cep.value;
+            var senha = formulario.senha.value;
+            var senha2 = formulario.senha2.value;
+
+            if (senha != senha2) {
+                alert('As senhas não são iguais')
+                senha.focus();
+                return false;
+            }
+
+            if (nome == "", cpf == "", endereco == "", numero == "", complemento == "", bairro == "", cep == "",
+                senha == "", senha2 == "") {
+                alert('Preenchimento de campos com * obrigatórios')
+                return false;
+            }
+
+            if (email == "", email.indexof('@') == -1) {
+                alert('Insira um email valido')
+                email.focus();
+                return false;
+            }
+        }
+
+        function valida() {
+            if (valida_cpf(document.getElementById('inputCpf').value))
+                alert('CPF Válido');
+            else
+                alert('CPF Inválido');
+        }
+
+        function valida_cpf(cpf) {
+            var numeros, digitos, soma, i, resultado, digitos_iguais;
+            digitos_iguais = 1;
+            if (cpf.length < 11)
+                return false;
+            for (i = 0; i < cpf.length - 1; i++)
+                if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+                    digitos_iguais = 0;
+                    break;
+                }
+            if (!digitos_iguais) {
+                numeros = cpf.substring(0, 9);
+                digitos = cpf.substring(9);
+                soma = 0;
+                for (i = 10; i > 1; i--)
+                    soma += numeros.charAt(10 - i) * i;
+                resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                if (resultado != digitos.charAt(0))
+                    return false;
+                numeros = cpf.substring(0, 10);
+                soma = 0;
+                for (i = 11; i > 1; i--)
+                    soma += numeros.charAt(11 - i) * i;
+                resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                if (resultado != digitos.charAt(1))
+                    return false;
+                return true;
+            } else
+                return false;
+        }
+    </script>
+
+
+</head>
+
+<body style="font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: rgb(235, 231, 231);">
+
+    <!-- header -->
+    <div class="container-flex" style="background-color: #240046;">
+        <img src="../imagens/senac_logo.png" width="120px" height="30px" class="img-fluid m-4" alt="logo imagem">
+    </div>
+
+
+    <!-- Body -->
+    <div class="container">
+
+        <form id="formulario" method="post">
+            <div class="row justify-content-center mb-5">
+
+                <div class="col-sm-12 col-md-10 col-lg-12">
+
+                    <div class="form-row">
+
+                        <div class="form-group col-lg-12 pt-4">
+                            <label for="inputNome">Nome*</label>
+                            <input type="text" name="nome" class="form-control" id="inputNome">
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label for="inputEmail">Email*</label>
+                            <input type="email" name="email" class="form-control" id="inputEmail">
+                        </div>
+
+                        <div class="form-group col-md-6 ">
+                            <label for="inputCpf">CPF*</label>
+                            <input type="text" name="cpf" class="form-control" id="inputCpf" maxlength="11">
+                            <input type="button" style="background-color: #240046; color: whitesmoke;"
+                                class="button m-3" value="validar" onclick="valida()">
+                        </div>
+
+
+
+                        <div class="form-group col-md-10">
+                            <label for="inputEndereco">Endereço*</label>
+                            <input type="text" name="endereco" class="form-control" id="inputEndereco">
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="inputNumero">Numero*</label>
+                            <input type="number" name="numero" class="form-control" id="inputNumero">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="inputComplemento">Complemento*</label>
+                            <input type="text" name="complemento" class="form-control" id="inputComplemento">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="inputBairro">Bairro*</label>
+                            <input type="text" name="bairro" class="form-control" id="inputBairro">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="inputCep">Cep*</label>
+                            <input type="text" name="cep" class="form-control" id="inputCep">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="inputSenha">Senha*</label>
+                            <input type="text" name="senha" class="form-control" id="inputSenha">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="inputSenha2">Repita a Senha*</label>
+                            <input type="text" name="senha2" class="form-control" id="inputSenha2">
+                        </div>
+
+                        <input type="submit" onclick="return enviar()" value="Enviar" class="button m-3"
+                            style="background-color: #240046; color: whitesmoke;">
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+    </div>
+    </form>
+    </div>
+
+    <!-- rodapé -->
+    <div class="container-flex" style="background-color: #240046; height: 70px;"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
